@@ -1,10 +1,12 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import main.HibernateUtil;
 import model.Card;
+import model.Racun;
 import model.User;
 
 public class CRUDmethods {
@@ -17,8 +19,9 @@ public class CRUDmethods {
 			session.beginTransaction();
 			
 		try {
-			
-			session.save(card);
+			//ukoliko se ne doda anotacija cascade = persist mora se eksplicitno reci da se drugiFK entitet cuva
+			//session.save(racun);
+			session.persist(card);
 			System.out.println("Saving card");
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -27,6 +30,26 @@ public class CRUDmethods {
 			session.getTransaction().rollback();
 		}	
 		session.close();
+	}
+	
+	public void insertRacunInDB(Racun racun) {
+		
+		Session session = sf.openSession();
+			session.beginTransaction();
+			
+			try {
+				
+				session.persist(racun);
+				System.out.println("Saving racun...");
+				
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("Something went wrong...");
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+		session.close();
+		
 	}
 	
 	public Card returnCardFromID(int id) {
@@ -49,6 +72,30 @@ public class CRUDmethods {
 			session.close();
 		
 		return card;
+	}
+	
+	public Racun returnRacunFromID (int id) {
+		
+		Racun racun = null;
+		
+		Session session = sf.openSession();
+			session.beginTransaction();
+			
+			try {
+				
+				racun = session.get(Racun.class, id);
+				System.out.println("Retrieving racun...");
+				
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("Something went wrong");
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+		session.close();
+		
+		
+		return racun;
 	}
 	
 	public void updatePAN(String pan, String id) {
@@ -125,6 +172,7 @@ public class CRUDmethods {
 				//eksplicitno sam mu rekao da ucita i listu kontakata
 				//Hibernate.initialize(user.getKontakti());
 				//user.getKontakti().size();
+				Hibernate.initialize(user.getKartice());
 				
 				System.out.println("Retrieving user...");
 				session.getTransaction().commit();

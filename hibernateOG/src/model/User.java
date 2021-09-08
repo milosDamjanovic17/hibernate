@@ -4,6 +4,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -13,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -30,8 +32,11 @@ public class User {
 	@Enumerated
 	private UserType userType;
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
 	private List<Contact> kontakti = new ArrayList<>();
+	
+	@OneToMany(cascade = CascadeType.PERSIST)
+	private List <Card> kartice = new ArrayList<Card>();
 	
 	
 	public int getId() {
@@ -48,6 +53,12 @@ public class User {
 	}
 	public UserType getUserType() {
 		return userType;
+	}
+	public List<Card> getKartice() {
+		return kartice;
+	}
+	public void setKartice(List<Card> kartice) {
+		this.kartice = kartice;
 	}
 	public void setUserType(UserType userType) {
 		this.userType = userType;

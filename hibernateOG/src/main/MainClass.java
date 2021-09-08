@@ -7,6 +7,7 @@ import dao.CRUDmethods;
 import model.Adresa;
 import model.Card;
 import model.Contact;
+import model.Racun;
 import model.User;
 import model.UserType;
 
@@ -17,67 +18,50 @@ public class MainClass {
 		CRUDmethods crud = new CRUDmethods();
 		
 		Card card = new Card();
-		User user = new User();
-		Adresa adresa = new Adresa();
-		Contact contact = new Contact();
-		UserType usertype = UserType.PREMIUM_USER;
-			/*card.setPan("9900 1010 4040 6712 2258");
-			card.setCardType("Diners Club");
+		Racun racun = new Racun();
+		/*
+			racun.setBrojRacuna("0567692213");
+			racun.setBanka("JUBMES Banka");
+			racun.setStanje(1000);
 		
-		crud.insertCardInDB(card);
+		card.setPan("9989 2716 5526 0073");
+		card.setCardType("VISA");
 		*/
+		//card.setRacun(racun);
 		
-		/*card = crud.returnCardFromID(5);
-		System.out.println("PAN: " +card.getPan());
-		System.out.println("TYPE: " +card.getCardType());
-		*/
+		//racun.setCard(card);
 		
-		//crud.updatePAN("9900 1010 4040 6712", "5");
-		//crud.deleteCard("2");
+		/*crud.insertRacunInDB(racun);
+		Racun racunfromDB = crud.returnRacunFromID(4);
+			System.out.println("BANKA: " +racunfromDB.getBanka());
+			System.out.println("Broj racuna: " +racunfromDB.getBrojRacuna());
+			System.out.println("PAN: " +racunfromDB.getCard().getPan());
+			System.out.println("CARD: " +racunfromDB.getCard().getCardType());
+			*/
 		
-		//user.setUsername("Rade Zagorac");
-		//user.setUserType(usertype);
+		/*User user = crud.returnUserFromID("2");
+		Card card1 = crud.returnCardFromID(1);
+		Card card2 = crud.returnCardFromID(2);
+		Card card3 = crud.returnCardFromID(3);
 		
-		//crud.insertUserInDB(user);
-		
-		/*Contact c1 = new Contact();
-			c1.setBrojTelefona("0638814752");
-			c1.setEmail("tepara@gmail.com");
+		List <Card> teparineKartice = new ArrayList<Card>();
+			teparineKartice.add(card1);
+			teparineKartice.add(card2);
+			teparineKartice.add(card3);
 			
-		Contact c2 = new Contact();
-			c2.setBrojTelefona("062695030");
-			c2.setEmail("grbavimilenkopfc@gmail.com");
-			
-		Contact c3 = new Contact();
-			c3.setBrojTelefona("069771582");
-			c3.setEmail("milenkoptn@gmail.com");
-			
-		List <Contact> tepariniKontakti = new ArrayList<>();
-			tepariniKontakti.add(c1);
-			tepariniKontakti.add(c2);
-			tepariniKontakti.add(c3);
-			
-		adresa.setDrzava("Srbija");
-		adresa.setGrad("Beograd");
-		adresa.setUlica("Narodnog Fronta");
-			
-		user.setUsername("Milenko Tepic");
-		user.setUserType(usertype);
-		user.setKontakti(tepariniKontakti);
-		user.setAdresa(adresa);
+		user.setKartice(teparineKartice);
 		
 		crud.insertUserInDB(user);
 		*/
+		List <Card> teparineKartice = new ArrayList<Card>();
+		User user = crud.returnUserFromID("3");
+		System.out.println("ime: " +user.getUsername());
 		
-		user = crud.returnUserFromID("2");
-		System.out.println("NAME: " +user.getUsername());
-		System.out.println("STATE: " +user.getAdresa().getDrzava());
-		System.out.println("USERTYPE: " +user.getUserType());
-		
-		List <Contact> tepariniKontakti = user.getKontakti();
-		for(Contact c: tepariniKontakti) {
-			System.out.println("Mob: " +c.getBrojTelefona());
-			System.out.println("Mail: " +c.getEmail());
+		teparineKartice = user.getKartice();
+		for(Card c: teparineKartice) {
+			
+			System.out.println("Card type: " +c.getCardType());
+			System.out.println("PAN: " +c.getPan());
 		}
 	}
 
