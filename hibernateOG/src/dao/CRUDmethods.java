@@ -5,8 +5,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import main.HibernateUtil;
+import model.Banka;
 import model.Card;
+import model.CreditCard;
+import model.DebitCard;
+import model.Ebank;
+import model.PremiumRacun;
 import model.Racun;
+import model.StandardBank;
 import model.User;
 
 public class CRUDmethods {
@@ -51,6 +57,8 @@ public class CRUDmethods {
 		session.close();
 		
 	}
+	
+
 	
 	public Card returnCardFromID(int id) {
 		
@@ -149,7 +157,7 @@ public class CRUDmethods {
 			
 			try {
 				
-				session.save(user);
+				session.persist(user);
 				System.out.println("Saving user...");
 				session.getTransaction().commit();
 			} catch (Exception e) {
@@ -186,4 +194,38 @@ public class CRUDmethods {
 		return user;
 	}
 	
+	public void insertDebitCardInDB(DebitCard debitCard) {
+		Session session = sf.openSession();
+			session.beginTransaction();
+			
+			try {
+				session.save(debitCard);
+				System.out.println("Saving debit");
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("Somethin went wrong");
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+		session.close();	
+	}
+	
+	public void insertBankeInDB(Banka banka, Ebank eBank, StandardBank sBank) {
+		Session session = sf.openSession();
+			session.beginTransaction();
+			
+			try {
+				session.persist(banka);
+				session.persist(eBank);
+				session.persist(sBank);
+				System.out.println("Saving banke");
+				
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("Somethin went wrong");
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+		session.close();	
+	}
 }
