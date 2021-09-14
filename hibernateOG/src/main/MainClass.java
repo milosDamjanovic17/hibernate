@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.CRUDmethods;
+import dao.HQLmethods;
 import model.Adresa;
 import model.Banka;
 import model.Card;
@@ -11,6 +12,7 @@ import model.Contact;
 import model.CreditCard;
 import model.Ebank;
 import model.PremiumRacun;
+import model.Racun;
 import model.StandardBank;
 
 public class MainClass {
@@ -18,23 +20,21 @@ public class MainClass {
 	public static void main(String[] args) {
 	
 		CRUDmethods crud = new CRUDmethods();
-		
-		//Card card = new Card();
-		//Racun racun = new Racun();
+		HQLmethods hql = new HQLmethods();
 		
 		
-		Banka banka = new Banka();
-			banka.setNaziv("ASDF banka");
+		
+		List<Card> kartice = new ArrayList<>();
+		kartice = hql.sveKartice();
+		
+		for(Card c: kartice) {
 			
-		Ebank eBank = new Ebank();
-			eBank.setNaziv("eASDF banka");
-			eBank.setBrojNaloga("15");
+			System.out.println("Id: " +c.getIdCard());
+			System.out.println("Card type: " +c.getCardType());
+			System.out.println("PAN: " +c.getPan());
 			
-		StandardBank sbank = new StandardBank();
-			sbank.setNaziv("sASDF banka");
-			sbank.setNazivFilijale("ASDF filijala");
-			
-		crud.insertBankeInDB(banka, eBank, sbank);
+		}
+		
 		
 	}
 

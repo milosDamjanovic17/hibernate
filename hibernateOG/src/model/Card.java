@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Vrsta_kartice", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "Vrsta_kartice")
 public class Card {
 	
 	@Id
@@ -24,9 +24,16 @@ public class Card {
 	private String pan;
 	private String cardType;
 	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private Racun racun;
 	
 	
-	
+	public Racun getRacun() {
+		return racun;
+	}
+	public void setRacun(Racun racun) {
+		this.racun = racun;
+	}
 	public int getIdCard() {
 		return idCard;
 	}
