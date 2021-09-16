@@ -38,7 +38,7 @@
 		<mapping class = "model.Banka"/>
 		<mapping class = "model.Ebank"/>
 		<mapping class = "model.StandardBank"/>
-		
+		<mapping class = "model.Podrska"/>
 		
 	</session-factory>
 </hibernate-configuration>

@@ -10,6 +10,7 @@ import model.Card;
 import model.CreditCard;
 import model.DebitCard;
 import model.Ebank;
+import model.Podrska;
 import model.PremiumRacun;
 import model.Racun;
 import model.StandardBank;
@@ -227,5 +228,22 @@ public class CRUDmethods {
 				session.getTransaction().rollback();
 			}
 		session.close();	
+	}
+	
+	public void upisiPodrskuUDB(Podrska podrska) {
+		
+		Session session = sf.openSession();
+			session.beginTransaction();
+		
+			try {
+				session.persist(podrska);
+				System.out.println("Saving podrska...");
+				
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("Something went wrong...");
+				session.getTransaction().rollback();
+			}
+			session.close();
 	}
 }
