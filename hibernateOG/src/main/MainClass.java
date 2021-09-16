@@ -35,7 +35,7 @@ public class MainClass {
 			
 		}else {
 			System.out.println("Ime je: " +ime);
-		}	
+		}
 	}
 
 

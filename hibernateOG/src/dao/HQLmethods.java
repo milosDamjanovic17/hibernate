@@ -75,7 +75,7 @@ public class HQLmethods {
 		return local;
 	}
 	
-public List<Podrska> vratiPodrskuPoName(String ime){
+	public List<Podrska> vratiPodrskuPoName(String ime){
 		
 		List<Podrska> local = null;
 		Session session = sf.openSession();
@@ -103,7 +103,7 @@ public List<Podrska> vratiPodrskuPoName(String ime){
 		return local;
 	}
 	
-public String vratiNamePoID(int id){
+	public String vratiNamePoID(int id){
 	
 		String localName = null;
 		Session session = sf.openSession();
@@ -128,8 +128,8 @@ public String vratiNamePoID(int id){
 			localName = null;
 			session.getTransaction().rollback();
 		}
-		session.close();
-	return localName;
-}
+			session.close();
+		return localName;
+	}
 
 }
