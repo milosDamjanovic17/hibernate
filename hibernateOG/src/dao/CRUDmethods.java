@@ -10,6 +10,7 @@ import model.Card;
 import model.CreditCard;
 import model.DebitCard;
 import model.Ebank;
+import model.Operater;
 import model.Podrska;
 import model.PremiumRacun;
 import model.Racun;
@@ -245,5 +246,24 @@ public class CRUDmethods {
 				session.getTransaction().rollback();
 			}
 			session.close();
+	}
+	
+public void insertOperaterInDB(Operater operater) {
+		
+		Session session = sf.openSession();
+			session.beginTransaction();
+			
+			try {
+				
+				session.persist(operater);
+				System.out.println("Saving operater...");
+				
+				session.getTransaction().commit();
+			} catch (Exception e) {
+				System.out.println("Something went wrong...");
+				e.printStackTrace();
+				session.getTransaction().rollback();
+			}
+		session.close();
 	}
 }

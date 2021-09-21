@@ -9,9 +9,9 @@
 	
 		<!-- Database connection settings -->
 		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/bankomat?useSSL=false</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/bankomat1?useSSL=false</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password">insearchofsunrise41342005</property>
+		<property name="connection.password">root</property>
 		
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">10</property>
@@ -39,6 +39,7 @@
 		<mapping class = "model.Ebank"/>
 		<mapping class = "model.StandardBank"/>
 		<mapping class = "model.Podrska"/>
+		<mapping class = "model.Operater"/>
 		
 	</session-factory>
 </hibernate-configuration>

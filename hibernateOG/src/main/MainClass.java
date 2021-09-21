@@ -12,6 +12,8 @@ import model.Card;
 import model.Contact;
 import model.CreditCard;
 import model.Ebank;
+import model.Operater;
+import model.OperaterWrapper;
 import model.Podrska;
 import model.PremiumRacun;
 import model.Racun;
@@ -24,18 +26,23 @@ public class MainClass {
 		CRUDmethods crud = new CRUDmethods();
 		HQLmethods hql = new HQLmethods();
 		
-		System.out.println("Unesi ID:");
-		int id = s.nextInt();
 		
-		String ime = hql.vratiNamePoID(id);
+		List <OperaterWrapper> listaOperatera = new ArrayList<>();
+		listaOperatera = hql.dajSveOperaterSQL();
+		System.out.println("Lista operatera u main klasi ima: " +listaOperatera.size());
+		
+		for(OperaterWrapper o: listaOperatera) {
+			System.out.println("uso u for" +"\n");
 			
-			
-		if(ime == null) {
-			System.out.println("vise imena ili nema tog imena");
-			
-		}else {
-			System.out.println("Ime je: " +ime);
+			System.out.println("Id: " +o.getId());
+			System.out.println("Sifra: " +o.getSifra());
+			System.out.println("Podrska name: " +o.getName());
+			System.out.println("Podrska broj telefona: " +o.getContact() +"\n");
 		}
+				
+		
+		
+			
 	}
 
 
