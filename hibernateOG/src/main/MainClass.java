@@ -39,8 +39,17 @@ public class MainClass {
 			System.out.println("Podrska name: " +o.getName());
 			System.out.println("Podrska broj telefona: " +o.getContact() +"\n");
 		}
-				
 		
+		List<Card> listaKartica = new ArrayList<>();
+		listaKartica = hql.sveKartice();
+		
+		for (Card c : listaKartica) {
+			
+			System.out.println("\nID: " +c.getIdCard());
+			System.out.println("Type: " +c.getCardType());
+			System.out.println("PAN: " +c.getPan());
+			
+		}
 		
 			
 	}

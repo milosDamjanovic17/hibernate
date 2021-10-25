@@ -22,33 +22,34 @@ import model.Racun;
 public class HQLmethods {
 	
 	//SessionFactory object
-	SessionFactory sf = HibernateUtil.getSessionFactory();
+	private static SessionFactory sf = HibernateUtil.getSessionFactory();
+	private static final Session sesija = sf.openSession();	//napravio static final instancu da ne bih otvarao sesiju dvesta miliona puta
 
 	
 	public List<Card> sveKartice(){
 		
 		List<Card> listaKartica = new ArrayList<Card>();
 		
-		Session session = sf.openSession();
-			session.beginTransaction();
+		//Session session = sf.openSession();
+			sesija.beginTransaction();
 			
 			try {
 				// hql upit
 				String hql = "from Card";
 				// slanje upita ka bazi
-				Query query = session.createQuery(hql);
+				Query query = sesija.createQuery(hql);
 				// prihvatanje objekata iz baze
-				listaKartica = query.getResultList();
+				listaKartica = query.getResultList(); //moze i  ne mora da se castuje u (List<Card>)
+				System.out.println("Trenutno u bazi imamo: " +listaKartica.size());
 				
-				session.getTransaction().commit();
+				sesija.getTransaction().commit();
 			} catch (Exception e) {
 				System.out.println("Something went wrong...");
 				listaKartica = null;
-				session.getTransaction().rollback();
+				sesija.getTransaction().rollback();
 			}
 			
-		
-			session.close();
+			sesija.close();
 		return listaKartica;
 	}
 	
@@ -183,18 +184,16 @@ public List<OperaterWrapper> dajSveOperaterSQL(){
 					+ "from operater o\n"
 					+ "inner join podrska p on p.id = o.podrska_id"; // SQL obracamo se bazi/tabeli!
 			//slanje upita
-			Query query = session.createNativeQuery(sql); // pretocice sql query u HQL
+			Query query = session.createNativeQuery(sql); // pravi sql query
 			//storniranje podataka iz upita
 			listaIzBaze = query.getResultList();
 			//mapiranje
 			for(Object[] object: listaIzBaze) {
-				OperaterWrapper localOperater = new OperaterWrapper(); //mapiranje
+				OperaterWrapper localOperater = new OperaterWrapper();
 				if(object[0] != null) localOperater.setId((int)object [0]);				
 				if(object[1] != null) localOperater.setSifra((String)object[1]);
 				if(object[2] != null) localOperater.setName((String) object[2]);		
 				if(object[3] != null) localOperater.setContact((String) object[3]);
-				
-				
 					returnList.add(localOperater);
 			}
 			
